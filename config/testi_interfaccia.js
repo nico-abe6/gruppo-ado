@@ -81,10 +81,10 @@ window.TESTI_INTERFACCIA = {
         browserNonSupportato: "Questo browser non supporta la cifratura necessaria. Aggiornalo o usane un altro.",
 
         titoloAmministrazione: "Area educatori",
-        etichettaEmail: "Email",
+        etichettaNomeEducatore: "Nome (come te l'ha dato chi gestisce la bacheca)",
         pulsanteAccedi: "Accedi",
         pulsanteEsciAmministrazione: "Esci",
-        accessoNonRiuscito: "Accesso non riuscito: controlla email e password.",
+        accessoNonRiuscito: "Accesso non riuscito: controlla nome e password.",
         sezioneGestioneContenuti: "Descrizione del profilo e link",
         descrizioneGestioneContenuti: "Compaiono sotto il logo, in cima alla bacheca.",
         etichettaTestoContenuto: "Testo",

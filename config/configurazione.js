@@ -28,6 +28,14 @@ window.CONFIGURAZIONE_BACHECA = {
     // posto di marchio + nome. Lasciare "" per usare marchio + nomeGruppo.
     percorsoLogoEsteso: "../risorse_grafiche/logo_oratorio.svg",
 
+    // Accesso educatori con il nome invece dell'email.
+    // Supabase richiede comunque un'email: la pagina la costruisce dal nome
+    // (es. "Maria Rossi" -> "maria.rossi@" + dominioAccessoEducatori).
+    // Gli account vanno creati in Supabase con queste email (README, passo 3).
+    // Il dominio non deve ricevere posta: con la conferma automatica Supabase
+    // non invia email. ".invalid" e' un dominio riservato che non esiste.
+    dominioAccessoEducatori: "educatori.oratorio.invalid",
+
     // Lingua dei testi (vedi config/testi_interfaccia.js).
     // Le date usano la lingua del telefono di chi apre la pagina.
     linguaInterfaccia: "it",

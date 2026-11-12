@@ -71,7 +71,16 @@ bacheca-qr/
 Il database considera "educatore" chiunque abbia fatto login. Per questo:
 
 1. In **Authentication**, nelle impostazioni dei metodi di accesso, **disattivare la registrazione di nuovi utenti** (opzione simile a "Allow new users to sign up"). I nomi delle voci nel pannello possono cambiare leggermente nel tempo.
-2. In **Authentication > Users** usare **Add user** per creare un account (email e password) per ogni educatore, con conferma automatica dell'email.
+2. In **Authentication > Users** usare **Add user** (poi "Create new user") per creare un account per ogni educatore, con **Auto Confirm User** attivo.
+
+Gli educatori entrano con **nome e password personale**, senza email. Supabase però richiede un'email: la pagina la ricava dal nome, quindi l'account va creato con l'email costruita così:
+
+- nome in minuscolo, senza accenti, spazi sostituiti da un punto, seguito da `@educatori.oratorio.invalid` (valore di `dominioAccessoEducatori` in `config/configurazione.js`);
+- esempi: "Maria Rossi" → `maria.rossi@educatori.oratorio.invalid`; "Don Luca" → `don.luca@educatori.oratorio.invalid`; "Niccolò" → `niccolo@educatori.oratorio.invalid`.
+
+Comunicare a ogni educatore il nome esatto da scrivere (maiuscole e accenti non contano) e la sua password. Le password vanno scelte diverse dal nome e di almeno 8 caratteri: chi conosce nome e password può gestire tutta la bacheca. Supabase non invia email a questi indirizzi (il dominio `.invalid` non esiste per definizione), quindi una password dimenticata si cambia dal pannello: **Authentication > Users**, menu della riga dell'educatore. Gli account già creati con un'email vera continuano a funzionare scrivendo l'email al posto del nome.
+
+Se il pannello rifiutasse l'indirizzo come non valido, cambiare `dominioAccessoEducatori` con un altro dominio (ad esempio quello del sito della parrocchia) e usare quello nella creazione degli account.
 
 Se la registrazione resta attiva, chiunque potrebbe crearsi un account e cancellare post o contenuti.
 
@@ -146,7 +155,7 @@ Chi ha già installato l'app vede le icone nuove solo dopo averla rimossa e rein
 
 ### Educatori
 
-- Nella bacheca premere **Accedi come edu** in alto a destra e fare login (l'indirizzo diretto è `.../src/amministrazione.html`).
+- Nella bacheca premere **Accedi come edu** in alto a destra ed entrare con nome e password personale (l'indirizzo diretto è `.../src/amministrazione.html`).
 - **Impostazioni**: la casella "Le foto dei ragazzi compaiono solo dopo l'approvazione" fa sì che i post con foto restino nascosti finché un educatore non li approva. Le sole frasi vengono comunque pubblicate subito.
 - **Foto da approvare**: approvare o eliminare.
 - **Pubblica un post come educatori**: foto, frase o entrambe; compaiono con il logo e l'etichetta "Educatori".

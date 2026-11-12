@@ -168,7 +168,30 @@
         verifica.src = configurazione.percorsoLogoEsteso;
     }
 
+    /*
+     * convertiNomeInEmailEducatore(nome)
+     * Ricava l'email di accesso dal nome scritto dall'educatore:
+     * minuscole, senza accenti, spazi sostituiti da un punto, solo lettere,
+     * numeri, punto, trattino e trattino basso.
+     *   "Maria Rossi" -> "maria.rossi@<dominioAccessoEducatori>"
+     *   "Don Luca"    -> "don.luca@<dominioAccessoEducatori>"
+     * Se il testo contiene gia' una @ viene usato cosi' com'e' (account con email vera).
+     */
+    function convertiNomeInEmailEducatore(nome) {
+        const testoPulito = String(nome || "").trim();
+        if (testoPulito.indexOf("@") !== -1) { return testoPulito.toLowerCase(); }
+        const parteNome = testoPulito
+            .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .replace(/\s+/g, ".")
+            .replace(/[^a-z0-9._-]/g, "")
+            .replace(/\.{2,}/g, ".")
+            .replace(/^\.|\.$/g, "");
+        return parteNome ? parteNome + "@" + configurazione.dominioAccessoEducatori : "";
+    }
+
     ambitoGlobale.UtilitaComuni = {
+        convertiNomeInEmailEducatore: convertiNomeInEmailEducatore,
         applicaLogoAllaPagina: applicaLogoAllaPagina,
         configurazione: configurazione,
         ottieniTestoInterfaccia: ottieniTestoInterfaccia,

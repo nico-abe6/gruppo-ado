@@ -41,7 +41,7 @@ Usa **Safari** (sui modelli recenti funziona anche da Chrome, con gli stessi pas
 
 ## Per gli educatori
 
-- Installa la bacheca come sopra, poi tocca **Accedi come edu** in alto a destra ed entra con email e password.
+- Installa la bacheca come sopra, poi tocca **Accedi come edu** in alto a destra ed entra con il tuo nome e la tua password personale.
 - La prima volta devi fare l'accesso **dentro l'app**: su iPhone l'app non condivide l'accesso con Safari. Poi resta memorizzato.
 - Se preferisci un'icona che apre direttamente l'area educatori, ripeti gli stessi passaggi mentre sei nella pagina dell'area educatori: comparirà una seconda icona "Educatori".
 

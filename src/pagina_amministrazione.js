@@ -23,7 +23,7 @@
 
     const elementi = {
         moduloAccesso: document.getElementById("modulo-accesso-educatore"),
-        campoEmail: document.getElementById("campo-email-educatore"),
+        campoNome: document.getElementById("campo-nome-educatore"),
         campoPassword: document.getElementById("campo-password-educatore"),
         pulsanteAccedi: document.getElementById("pulsante-accedi-educatore"),
         statoAccesso: document.getElementById("stato-accesso-educatore"),
@@ -66,12 +66,17 @@
         caricaEMostraContenutiDaGestire();
     }
 
-    /* accediComeEducatore: login con email e password. */
+    /* accediComeEducatore: login con nome e password (il nome diventa l'email di accesso). */
     async function accediComeEducatore(evento) {
         evento.preventDefault();
+        const emailAccesso = utilita.convertiNomeInEmailEducatore(elementi.campoNome.value);
+        if (!emailAccesso || !elementi.campoPassword.value) {
+            utilita.mostraMessaggioDiStato(elementi.statoAccesso, "accessoNonRiuscito", "errore");
+            return;
+        }
         elementi.pulsanteAccedi.disabled = true;
         const risposta = await clientDatabase.auth.signInWithPassword({
-            email: elementi.campoEmail.value.trim(),
+            email: emailAccesso,
             password: elementi.campoPassword.value
         });
         elementi.pulsanteAccedi.disabled = false;
