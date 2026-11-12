@@ -1,0 +1,29 @@
+# mantieni_attivo_database.yml
+#
+# Il piano gratuito di Supabase mette in pausa i progetti dopo una settimana
+# senza attivita' (es. vacanze). Questo flusso GitHub Actions fa una lettura
+# leggera ogni 3 giorni per evitarlo.
+#
+# Richiede due "secrets" nel repository (Settings > Secrets and variables > Actions):
+#   INDIRIZZO_SUPABASE      es. https://abcdefgh.supabase.co
+#   CHIAVE_PUBBLICA_SUPABASE  la stessa chiave pubblica di config/configurazione.js
+name: Mantieni attivo il database
+
+on:
+  schedule:
+    - cron: "17 6 */3 * *"
+  workflow_dispatch:
+
+jobs:
+  lettura-leggera:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Legge un contenuto dalla tabella contenuti_educatori
+        env:
+          INDIRIZZO_SUPABASE: ${{ secrets.INDIRIZZO_SUPABASE }}
+          CHIAVE_PUBBLICA_SUPABASE: ${{ secrets.CHIAVE_PUBBLICA_SUPABASE }}
+        run: |
+          curl --fail --silent --show-error \
+            "${INDIRIZZO_SUPABASE}/rest/v1/contenuti_educatori?select=id&limit=1" \
+            -H "apikey: ${CHIAVE_PUBBLICA_SUPABASE}" > /dev/null
+          echo "Database raggiunto."

@@ -1,0 +1,18 @@
+{
+    "id": "educatori",
+    "name": "Oratorio - Area educatori",
+    "short_name": "Educatori",
+    "description": "Gestione della bacheca riservata agli educatori.",
+    "lang": "it",
+    "start_url": "amministrazione.html",
+    "scope": "./",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#f2f3f5",
+    "theme_color": "#ffffff",
+    "icons": [
+        { "src": "../risorse_grafiche/icone/icona_educatori_192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+        { "src": "../risorse_grafiche/icone/icona_educatori_512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+        { "src": "../risorse_grafiche/icone/icona_educatori_512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    ]
+}

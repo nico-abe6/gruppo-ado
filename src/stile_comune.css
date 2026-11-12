@@ -1,0 +1,595 @@
+/*
+ * stile_comune.css
+ *
+ * Stile della bacheca (impaginazione da profilo social) e dell'area educatori.
+ *   - barra in alto con logo e nome, barra di navigazione fissa in basso;
+ *   - profilo con logo grande, numero di post, descrizione e link;
+ *   - post in griglia 3 colonne o in elenco a schede;
+ *   - i post di sola frase sono riquadri colorati;
+ *   - lo spazio personale e' una pagina a righe di quaderno.
+ * Stile grafico: carattere Poppins, verde come colore principale, sfondo
+ * grigio chiaro, schede bianche con angoli arrotondati e ombra morbida,
+ * pulsanti a pillola.
+ * I colori sono variabili: tema chiaro e scuro seguono il dispositivo.
+ */
+
+:root {
+    --colore-sfondo: #f2f3f5;
+    --colore-superficie: #ffffff;
+    --colore-campo: #f4f5f7;
+    --colore-inchiostro: #1a1a1a;
+    --colore-inchiostro-tenue: #6b6f76;
+    --colore-bordo: #e4e6ea;
+    --colore-accento: #43a047;
+    --colore-accento-tenue: #e8f5e9;
+    --colore-testo-accento: #2e7d32;
+    --colore-anello-logo-1: #4caf50;
+    --colore-anello-logo-2: #4caf50;
+    --colore-testo-su-accento: #ffffff;
+    --colore-errore: #c62828;
+    --colore-ok: #2e7d32;
+    --colore-riga-quaderno: #e3e8ee;
+    --colore-margine-quaderno: #a5d6a7;
+    --colore-inchiostro-foglietto: #1a1a1a;
+    --colore-post-1: #dff2e1;
+    --colore-post-2: #fff1c7;
+    --colore-post-3: #fde2e7;
+    --colore-post-4: #dfeafb;
+
+    --carattere-testo: "Poppins", "Segoe UI", system-ui, -apple-system, sans-serif;
+    --carattere-titoli: "Poppins", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+    --larghezza-app: 30rem;
+    --altezza-barra-navigazione: 3.75rem;
+    --raggio-piccolo: 10px;
+    --raggio-medio: 16px;
+    --raggio-pillola: 999px;
+    --ombra-scheda: 0 4px 18px rgba(0, 0, 0, 0.06);
+    --ombra-barra: 0 -2px 14px rgba(0, 0, 0, 0.05);
+    --spazio-1: 0.5rem;
+    --spazio-2: 1rem;
+    --spazio-3: 1.5rem;
+    --spazio-4: 2.5rem;
+
+    color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --colore-sfondo: #121417;
+        --colore-superficie: #1c1f24;
+        --colore-campo: #252930;
+        --colore-inchiostro: #eceef1;
+        --colore-inchiostro-tenue: #a4a9b2;
+        --colore-bordo: #2f343c;
+        --colore-accento: #66bb6a;
+        --colore-accento-tenue: #1f3322;
+        --colore-testo-accento: #81c784;
+        --colore-anello-logo-1: #66bb6a;
+        --colore-anello-logo-2: #66bb6a;
+        --colore-testo-su-accento: #0f1f12;
+        --colore-errore: #ffb4ab;
+        --colore-ok: #81c784;
+        --colore-riga-quaderno: #2c3139;
+        --colore-margine-quaderno: #3f6b42;
+        --colore-post-1: #c8e6c9;
+        --colore-post-2: #f3e3a8;
+        --colore-post-3: #f0c6ce;
+        --colore-post-4: #c5d6f2;
+        --ombra-scheda: 0 4px 18px rgba(0, 0, 0, 0.35);
+        --ombra-barra: 0 -2px 14px rgba(0, 0, 0, 0.35);
+        color-scheme: dark;
+    }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+a { color: var(--colore-testo-accento); }
+
+/* L'attributo hidden deve vincere sui display impostati dalle classi. */
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+    margin: 0;
+    background: var(--colore-sfondo);
+    color: var(--colore-inchiostro);
+    font-family: var(--carattere-testo);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.testo-nascosto {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+.icona { width: 1.6rem; height: 1.6rem; flex: none; }
+.icona-grande { width: 2.6rem; height: 2.6rem; }
+
+/* ---- Barra superiore ---- */
+.barra-superiore {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--colore-superficie);
+    box-shadow: var(--ombra-scheda);
+    padding: env(safe-area-inset-top, 0px) var(--spazio-2) 0;
+}
+
+.marchio {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    max-width: var(--larghezza-app);
+    margin: 0 auto;
+    height: 3.25rem;
+    color: inherit;
+    text-decoration: none;
+}
+
+.logo-piccolo {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--colore-campo);
+}
+
+.nome-marchio {
+    font-family: var(--carattere-titoli);
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Pulsante "Installa" nella barra in alto (compare solo se il telefono lo permette) */
+.pulsante-installa-barra {
+    position: absolute;
+    right: var(--spazio-2);
+    top: calc(env(safe-area-inset-top, 0px) + 0.55rem);
+    padding: 0.35rem 1rem;
+    font-size: 0.85rem;
+}
+
+/* ---- Contenitore e viste ---- */
+.contenitore-app {
+    max-width: var(--larghezza-app);
+    margin: 0 auto;
+    padding-bottom: calc(var(--altezza-barra-navigazione) + env(safe-area-inset-bottom, 0px) + var(--spazio-3));
+}
+
+.vista-con-margini { padding: var(--spazio-3) var(--spazio-2) 0; }
+
+.titolo-vista { font-size: 1.4rem; font-weight: 600; margin: 0 0 0.25rem; }
+
+.descrizione-vista { margin: 0 0 var(--spazio-2); color: var(--colore-inchiostro-tenue); }
+
+/* ---- Profilo ---- */
+.scheda-profilo {
+    margin: var(--spazio-2) var(--spazio-2) 0;
+    background: var(--colore-superficie);
+    border-radius: var(--raggio-medio);
+    box-shadow: var(--ombra-scheda);
+    overflow: hidden;
+}
+
+.profilo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--spazio-1);
+    padding: var(--spazio-3) var(--spazio-2) var(--spazio-2);
+}
+
+.anello-logo {
+    flex: none;
+    padding: 3px;
+    border-radius: 50%;
+    background: conic-gradient(var(--colore-anello-logo-1), var(--colore-anello-logo-2), var(--colore-anello-logo-1));
+}
+
+.logo-profilo {
+    display: block;
+    width: 6.5rem;
+    height: 6.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--colore-superficie);
+    background: var(--colore-campo);
+}
+
+.nome-profilo { margin: 0; font-size: 1.25rem; font-weight: 600; line-height: 1.2; }
+
+/* Riquadro statistica, come le schede numeriche di un profilo social */
+.numero-post {
+    display: inline-block;
+    margin: var(--spazio-1) 0 0;
+    padding: 0.45rem 1.1rem;
+    border: 1px solid var(--colore-bordo);
+    border-radius: var(--raggio-piccolo);
+    color: var(--colore-inchiostro);
+    font-weight: 600;
+}
+.numero-post:empty { display: none; }
+
+.bio-profilo {
+    list-style: none;
+    margin: 0;
+    padding: 0 var(--spazio-2) var(--spazio-3);
+    display: grid;
+    gap: 0.4rem;
+    text-align: center;
+    font-size: 0.92rem;
+    color: var(--colore-inchiostro-tenue);
+}
+
+.voce-bio { white-space: pre-wrap; overflow-wrap: anywhere; }
+
+.link-bio {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-left: 0.35rem;
+    color: var(--colore-testo-accento);
+    font-weight: 600;
+    text-decoration: none;
+}
+.link-bio .icona { width: 1.05rem; height: 1.05rem; }
+
+/* ---- Schede griglia / elenco ---- */
+.schede-post {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spazio-1);
+    margin: var(--spazio-2) var(--spazio-2) var(--spazio-1);
+    padding: 0.3rem;
+    background: var(--colore-superficie);
+    border-radius: var(--raggio-pillola);
+    box-shadow: var(--ombra-scheda);
+}
+
+.linguetta-post {
+    display: flex;
+    justify-content: center;
+    padding: 0.45rem 0;
+    background: none;
+    border: 0;
+    border-radius: var(--raggio-pillola);
+    color: var(--colore-inchiostro-tenue);
+    cursor: pointer;
+}
+
+.linguetta-post[aria-selected="true"] { color: var(--colore-testo-su-accento); background: var(--colore-accento); }
+
+/* ---- Griglia ---- */
+.griglia-post {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    padding: var(--spazio-1) var(--spazio-2) 0;
+}
+
+.miniatura-post {
+    aspect-ratio: 1 / 1;
+    padding: 0;
+    border: 0;
+    border-radius: var(--raggio-piccolo);
+    overflow: hidden;
+    background: var(--colore-superficie);
+    box-shadow: var(--ombra-scheda);
+    color: var(--colore-inchiostro-foglietto);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.miniatura-post img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.testo-miniatura {
+    font-family: var(--carattere-titoli);
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.25;
+    padding: 0.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+}
+
+.messaggio-vuoto { grid-column: 1 / -1; padding: var(--spazio-3) var(--spazio-2); text-align: center; }
+
+/* Colori dei post senza foto (anche per avatar con iniziale) */
+.colore-post-1 { background: var(--colore-post-1); }
+.colore-post-2 { background: var(--colore-post-2); }
+.colore-post-3 { background: var(--colore-post-3); }
+.colore-post-4 { background: var(--colore-post-4); }
+
+/* ---- Elenco (feed) ---- */
+.elenco-post { display: grid; gap: var(--spazio-2); padding: var(--spazio-1) var(--spazio-2) 0; }
+
+article.scheda-post {
+    scroll-margin-top: calc(3.5rem + env(safe-area-inset-top, 0px));
+    display: block;
+    background: var(--colore-superficie);
+    border-radius: var(--raggio-medio);
+    box-shadow: var(--ombra-scheda);
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    color: var(--colore-inchiostro);
+}
+
+.intestazione-post {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem var(--spazio-2);
+}
+
+.avatar-post {
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    border: 2px solid var(--colore-accento);
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-weight: 600;
+    color: var(--colore-inchiostro-foglietto);
+    background: var(--colore-campo);
+}
+.avatar-post img { width: 100%; height: 100%; object-fit: cover; }
+.avatar-anonimo { color: var(--colore-inchiostro-tenue); }
+.avatar-anonimo .icona { width: 1.3rem; height: 1.3rem; }
+
+.autore-post { display: flex; align-items: center; gap: 0.4rem; min-width: 0; flex-wrap: wrap; }
+
+.etichetta-educatori {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.1rem 0.6rem;
+    border-radius: var(--raggio-pillola);
+    background: var(--colore-accento-tenue);
+    color: var(--colore-testo-accento);
+}
+
+.data-post { margin-left: auto; font-size: 0.8rem; color: var(--colore-inchiostro-tenue); white-space: nowrap; }
+
+.foto-post {
+    display: block;
+    width: 100%;
+    max-height: 80vh;
+    object-fit: cover;
+    background: var(--colore-campo);
+}
+
+.didascalia-post { margin: 0; padding: 0.6rem var(--spazio-2) 0.8rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+.post-solo-testo {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spazio-3);
+    color: var(--colore-inchiostro-foglietto);
+}
+
+.post-solo-testo p {
+    margin: 0;
+    font-family: var(--carattere-titoli);
+    font-size: clamp(1.3rem, 5.5vw, 1.75rem);
+    font-weight: 600;
+    line-height: 1.3;
+    text-align: center;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/* ---- Barra di navigazione in basso ---- */
+.barra-navigazione {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-around;
+    background: var(--colore-superficie);
+    box-shadow: var(--ombra-barra);
+    border-radius: var(--raggio-medio) var(--raggio-medio) 0 0;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.voce-navigazione {
+    flex: 1;
+    max-width: 10rem;
+    height: var(--altezza-barra-navigazione);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--colore-inchiostro-tenue);
+}
+
+.voce-navigazione[aria-current="page"] { color: var(--colore-accento); }
+.voce-navigazione[aria-current="page"] .icona { stroke-width: 2.6; transform: scale(1.08); }
+
+/* ---- Nuovo post: foto ---- */
+.area-foto { display: grid; gap: var(--spazio-1); }
+
+.scelta-foto {
+    aspect-ratio: 1 / 1;
+    border: 2px dashed var(--colore-accento);
+    border-radius: var(--raggio-medio);
+    background: var(--colore-accento-tenue);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spazio-1);
+    font-weight: 600;
+    color: var(--colore-testo-accento);
+    cursor: pointer;
+}
+
+.anteprima-foto {
+    display: block;
+    width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: var(--raggio-medio);
+    background: var(--colore-campo);
+}
+
+/* ---- Moduli ---- */
+.modulo {
+    display: grid;
+    gap: var(--spazio-2);
+    background: var(--colore-superficie);
+    border-radius: var(--raggio-medio);
+    box-shadow: var(--ombra-scheda);
+    padding: var(--spazio-3) var(--spazio-2);
+}
+
+.campo { display: grid; gap: 0.3rem; }
+.campo label { font-weight: 500; font-size: 0.92rem; }
+.aiuto-campo { font-size: 0.875rem; color: var(--colore-inchiostro-tenue); }
+
+input, textarea {
+    font: inherit;
+    color: var(--colore-inchiostro);
+    background: var(--colore-campo);
+    border: 1px solid transparent;
+    border-radius: var(--raggio-piccolo);
+    padding: 0.75rem 0.9rem;
+    width: 100%;
+}
+
+textarea { min-height: 6rem; resize: vertical; }
+
+input:focus-visible, textarea:focus-visible, button:focus-visible, a:focus-visible, label:focus-visible,
+input[type="file"]:focus-visible + .riga-pulsanti label {
+    outline: 3px solid var(--colore-accento);
+    outline-offset: 2px;
+}
+
+.riga-pulsanti { display: flex; flex-wrap: wrap; gap: var(--spazio-1); align-items: center; }
+
+button, .pulsante {
+    font: inherit;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: var(--raggio-pillola);
+    padding: 0.65rem 1.5rem;
+    cursor: pointer;
+    border: 2px solid var(--colore-accento);
+    background: var(--colore-accento);
+    color: var(--colore-testo-su-accento);
+    display: inline-block;
+}
+
+button.pulsante-secondario, .pulsante.pulsante-secondario { background: transparent; color: var(--colore-testo-accento); }
+
+button.pulsante-pericolo {
+    background: transparent;
+    border-color: var(--colore-errore);
+    color: var(--colore-errore);
+    padding: 0.35rem 0.9rem;
+    font-size: 0.9rem;
+}
+
+button:disabled { opacity: 0.55; cursor: progress; }
+
+.messaggio-stato { margin: 0; font-weight: 500; color: var(--colore-inchiostro-tenue); }
+.messaggio-stato[data-tipo="errore"] { color: var(--colore-errore); }
+.messaggio-stato[data-tipo="ok"] { color: var(--colore-ok); }
+
+.testo-vuoto { color: var(--colore-inchiostro-tenue); font-style: italic; }
+
+/* ---- Spazio personale: pagina di quaderno ---- */
+.quaderno {
+    background-color: var(--colore-superficie);
+    background-image:
+        linear-gradient(90deg, transparent 2.6rem, var(--colore-margine-quaderno) 2.6rem, var(--colore-margine-quaderno) calc(2.6rem + 2px), transparent calc(2.6rem + 2px)),
+        repeating-linear-gradient(180deg, transparent 0, transparent calc(2rem - 1px), var(--colore-riga-quaderno) calc(2rem - 1px), var(--colore-riga-quaderno) 2rem);
+    border-radius: var(--raggio-medio);
+    box-shadow: var(--ombra-scheda);
+    padding: var(--spazio-3) var(--spazio-2) var(--spazio-3) 3.4rem;
+    display: grid;
+    gap: var(--spazio-2);
+}
+
+.titolo-quaderno { margin: 0; font-size: 1.25rem; font-weight: 600; }
+
+.appunti { display: grid; gap: var(--spazio-3); }
+.appunto { display: grid; gap: 0.3rem; }
+
+.intestazione-appunto {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spazio-1);
+    font-size: 0.875rem;
+    color: var(--colore-inchiostro-tenue);
+}
+
+.appunto textarea {
+    background: transparent;
+    border-style: dashed;
+    line-height: 2rem;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+/* ---- Area educatori ---- */
+.contenitore-pagina {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: calc(var(--spazio-3) + env(safe-area-inset-top, 0px)) var(--spazio-2) calc(var(--spazio-4) + env(safe-area-inset-bottom, 0px));
+}
+.scheda-installazione { gap: var(--spazio-1); border-left: 4px solid var(--colore-accento); }
+.scheda-installazione .titolo-sezione, .scheda-installazione .descrizione-sezione { margin: 0; }
+.istruzioni-installazione { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.3rem; font-size: 0.92rem; }
+.intestazione-pagina { display: flex; align-items: center; gap: var(--spazio-2); margin-bottom: var(--spazio-3); }
+.intestazione-pagina h1 { margin: 0; font-size: 1.7rem; font-weight: 600; }
+.intestazione-pagina p { margin: 0; }
+.sezione { margin-bottom: var(--spazio-4); }
+.titolo-sezione { font-size: 1.3rem; font-weight: 600; margin: 0 0 var(--spazio-1); }
+.descrizione-sezione { margin: 0 0 var(--spazio-2); color: var(--colore-inchiostro-tenue); }
+.campo-casella { display: flex; gap: 0.6rem; align-items: flex-start; font-weight: 500; }
+.campo-casella input { width: auto; margin-top: 0.3rem; accent-color: var(--colore-accento); }
+
+.elenco-gestione { list-style: none; margin: var(--spazio-2) 0 0; padding: 0; display: grid; gap: var(--spazio-1); }
+
+.voce-gestione {
+    display: flex;
+    gap: var(--spazio-2);
+    align-items: flex-start;
+    background: var(--colore-superficie);
+    border-radius: var(--raggio-medio);
+    box-shadow: var(--ombra-scheda);
+    padding: 0.75rem;
+}
+
+.miniatura-gestione { width: 4.5rem; height: 4.5rem; object-fit: cover; border-radius: var(--raggio-piccolo); flex: none; }
+.testo-voce-gestione { flex: 1; white-space: pre-wrap; overflow-wrap: anywhere; min-width: 0; }
+.dettaglio-voce-gestione { display: block; font-size: 0.85rem; color: var(--colore-inchiostro-tenue); }
+.azioni-voce-gestione { display: grid; gap: 0.4rem; }
+
+@media (min-width: 40rem) {
+    .barra-navigazione { justify-content: center; }
+}

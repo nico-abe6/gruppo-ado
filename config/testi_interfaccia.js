@@ -1,0 +1,107 @@
+/*
+ * testi_interfaccia.js
+ *
+ * Tutti i testi mostrati nelle pagine, raggruppati per lingua.
+ * Per tradurre la bacheca: copiare il blocco "it", cambiare la chiave
+ * (es. "en"), tradurre i valori e impostare linguaInterfaccia in
+ * configurazione.js. I segnaposto tra graffe, es. {minimo}, vengono
+ * sostituiti dal codice.
+ */
+window.TESTI_INTERFACCIA = {
+    it: {
+        titoloPagina: "Bacheca",
+        logoAlternativo: "Logo",
+
+        navigazioneBacheca: "Bacheca",
+        navigazioneNuovoPost: "Nuovo post",
+        navigazioneSpazio: "Il mio spazio",
+
+        numeroPost: "{numero} post",
+        nessunContenutoEducatori: "Gli educatori non hanno ancora scritto nulla.",
+        schedaGriglia: "Griglia",
+        schedaElenco: "Elenco",
+        etichettaEducatori: "Educatori",
+        firmaAnonima: "Anonimo",
+        nessunPost: "Ancora nessun post. Pubblica il primo dal pulsante +.",
+        apriPost: "Apri il post",
+
+        titoloNuovoPost: "Nuovo post",
+        descrizioneNuovoPost: "Puoi pubblicare una foto, una frase o entrambe. Lo vedono tutti. Se lasci vuota la firma, compari come \u201cAnonimo\u201d.",
+        pulsanteScegliFoto: "Scegli una foto",
+        pulsanteCambiaFoto: "Cambia foto",
+        pulsanteTogliFoto: "Togli la foto",
+        etichettaTestoPost: "Frase",
+        etichettaFirma: "Firma (facoltativa)",
+        segnapostoFirma: "Lascia vuoto per restare anonimo",
+        pulsantePubblica: "Pubblica",
+        pubblicazioneInCorso: "Pubblicazione in corso...",
+        postPubblicato: "Pubblicato.",
+        postInAttesa: "Inviato. Le foto vengono controllate dagli educatori prima di comparire.",
+        postVuoto: "Aggiungi una foto o scrivi una frase.",
+        fotoNonLeggibile: "Questa foto non si riesce ad aprire. Prova con un'altra immagine (JPEG o PNG).",
+        fotoTroppoGrande: "La foto e' troppo pesante anche dopo la compressione. Prova con un'altra.",
+        caratteriRimasti: "{rimasti} caratteri rimasti",
+
+        sezioneSpazio: "Il mio spazio",
+        descrizioneSpazio: "Appunti privati: li puoi leggere solo tu, con la tua password. Nemmeno gli educatori possono vederli.",
+        etichettaNomeSpazio: "Nome del tuo spazio",
+        aiutoNomeSpazio: "Da 3 a 40 caratteri: lettere minuscole, numeri, - e _",
+        etichettaPassword: "Password",
+        pulsanteApriSpazio: "Apri il mio spazio",
+        spazioInesistente: "Non esiste ancora uno spazio con questo nome.",
+        pulsanteCreaSpazio: "Crea lo spazio con questa password",
+        avvisoPassword: "Ricordati la password: se la perdi, nessuno puo' recuperare i tuoi appunti.",
+        nomeGiaUsato: "Questo nome e' gia' usato. Scegline un altro.",
+        nomeOPasswordErrati: "Nome o password non corretti.",
+        nomeNonValido: "Il nome puo' contenere solo lettere minuscole, numeri, - e _ (da 3 a 40 caratteri).",
+        passwordCorta: "La password deve avere almeno {minimo} caratteri.",
+        attendereCalcolo: "Un momento, sto proteggendo i tuoi appunti...",
+        titoloSpazioAperto: "Spazio di {nome}",
+        pulsanteNuovoAppunto: "Nuovo appunto",
+        pulsanteSalva: "Salva",
+        pulsanteEsci: "Chiudi lo spazio",
+        pulsanteEliminaAppunto: "Elimina",
+        confermaEliminaAppunto: "Eliminare questo appunto?",
+        salvato: "Salvato alle {ora}.",
+        modificheNonSalvate: "Ci sono modifiche non salvate.",
+        nessunAppunto: "Nessun appunto. Premi \u201cNuovo appunto\u201d per iniziare.",
+        consiglioUscita: "Su un telefono non tuo, chiudi lo spazio quando hai finito.",
+
+        erroreCaricamento: "Impossibile caricare i dati. Controlla la connessione e ricarica la pagina.",
+        erroreGenerico: "Operazione non riuscita. Riprova tra poco.",
+        browserNonSupportato: "Questo browser non supporta la cifratura necessaria. Aggiornalo o usane un altro.",
+
+        titoloAmministrazione: "Area educatori",
+        etichettaEmail: "Email",
+        pulsanteAccedi: "Accedi",
+        pulsanteEsciAmministrazione: "Esci",
+        accessoNonRiuscito: "Accesso non riuscito: controlla email e password.",
+        sezioneGestioneContenuti: "Descrizione del profilo e link",
+        descrizioneGestioneContenuti: "Compaiono sotto il logo, in cima alla bacheca.",
+        etichettaTestoContenuto: "Testo",
+        etichettaLinkContenuto: "Link (facoltativo, deve iniziare con https://)",
+        etichettaOrdineContenuto: "Ordine (numeri piu' bassi in alto)",
+        pulsanteAggiungiContenuto: "Aggiungi",
+        sezioneNuovoPostEducatori: "Pubblica un post come educatori",
+        sezioneImpostazioni: "Impostazioni",
+        etichettaApprovazioneFoto: "Le foto dei ragazzi compaiono solo dopo l'approvazione di un educatore",
+        impostazioneSalvata: "Impostazione salvata.",
+        sezioneDaApprovare: "Foto da approvare",
+        nessunPostDaApprovare: "Nessuna foto in attesa.",
+        pulsanteApprova: "Approva",
+        sezioneGestionePost: "Post pubblicati",
+        pulsanteElimina: "Elimina",
+        confermaEliminaPost: "Eliminare definitivamente questo post (e la sua foto)?",
+        confermaEliminaContenuto: "Eliminare definitivamente questo contenuto?",
+        linkNonValido: "Il link deve iniziare con http:// o https://",
+        vaiAllaBacheca: "Apri la bacheca",
+
+        pulsanteInstallaApp: "Installa",
+        pulsanteInstallaAreaEducatori: "Installa l'app",
+        pulsanteNonOra: "Non ora",
+        titoloInstallazione: "Usa l'area educatori come app",
+        descrizioneInstallazione: "Aggiungila alla schermata del telefono: si apre a schermo intero come le altre app e resti collegato.",
+        istruzioniInstallazioneAndroid: "Android (Chrome): menu \u22ee in alto a destra, poi \"Installa app\" o \"Aggiungi a schermata Home\".",
+        istruzioniInstallazioneIphone: "iPhone (Safari): pulsante Condividi, poi \"Aggiungi alla schermata Home\"."
+    }
+};

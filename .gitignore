@@ -1,0 +1,10 @@
+# .gitignore: file da NON pubblicare su GitHub
+# copie e anteprime create durante il lavoro
+backup_stile_precedente/
+Claude outputs/
+strumenti/.tmp_progetto.tgz
+# file di sistema ed editor
+.DS_Store
+Thumbs.db
+*~
+__pycache__/

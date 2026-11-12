@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Segnaposto usato finche' non si aggiunge risorse_grafiche/logo_oratorio.png -->
+  <rect width="200" height="200" fill="#dfe6ef"/>
+  <circle cx="100" cy="82" r="34" fill="none" stroke="#56627a" stroke-width="8"/>
+  <path d="M46 160c10-26 32-40 54-40s44 14 54 40" fill="none" stroke="#56627a" stroke-width="8" stroke-linecap="round"/>
+</svg>

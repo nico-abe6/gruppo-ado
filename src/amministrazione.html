@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<!--
+  amministrazione.html
+  Area riservata agli educatori: login, impostazioni, approvazione delle foto,
+  pubblicazione di post come educatori, descrizione del profilo e link,
+  eliminazione dei post. Gli account si creano dal pannello Supabase (README.md).
+-->
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="robots" content="noindex">
+    <title>Area educatori</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="stile_comune.css">
+    <!-- Installazione come app sul telefono (vedi installazione_app.js) -->
+    <link rel="manifest" href="manifest_educatori.webmanifest">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="apple-touch-icon" href="../risorse_grafiche/icone/icona_educatori_apple_180.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Educatori">
+</head>
+<body>
+<main class="contenitore-pagina">
+
+    <header class="intestazione-pagina">
+        <img class="logo-piccolo" data-logo alt="" style="width:3rem;height:3rem">
+        <div>
+            <h1 data-testo="titoloAmministrazione"></h1>
+            <p><a href="index.html" data-testo="vaiAllaBacheca"></a></p>
+        </div>
+    </header>
+
+    <!-- Invito a installare l'area educatori come app (nascosto se gia' installata) -->
+    <section class="modulo scheda-installazione sezione" data-istruzioni-installazione aria-labelledby="titolo-installazione" hidden>
+        <h2 class="titolo-sezione" id="titolo-installazione" data-testo="titoloInstallazione"></h2>
+        <p class="descrizione-sezione" data-testo="descrizioneInstallazione"></p>
+        <ul class="istruzioni-installazione">
+            <li data-testo="istruzioniInstallazioneAndroid"></li>
+            <li data-testo="istruzioniInstallazioneIphone"></li>
+        </ul>
+        <div class="riga-pulsanti">
+            <button type="button" data-installa-app data-testo="pulsanteInstallaAreaEducatori" hidden></button>
+            <button type="button" class="pulsante-secondario" data-nascondi-installazione data-testo="pulsanteNonOra"></button>
+        </div>
+    </section>
+
+    <form class="modulo" id="modulo-accesso-educatore" novalidate>
+        <div class="campo">
+            <label for="campo-email-educatore" data-testo="etichettaEmail"></label>
+            <input id="campo-email-educatore" type="email" autocomplete="username" required>
+        </div>
+        <div class="campo">
+            <label for="campo-password-educatore" data-testo="etichettaPassword"></label>
+            <input id="campo-password-educatore" type="password" autocomplete="current-password" required>
+        </div>
+        <div class="riga-pulsanti">
+            <button type="submit" id="pulsante-accedi-educatore" data-testo="pulsanteAccedi"></button>
+        </div>
+        <p class="messaggio-stato" id="stato-accesso-educatore" role="status" hidden></p>
+    </form>
+
+    <div id="pannello-gestione" hidden>
+        <div class="riga-pulsanti sezione">
+            <button type="button" class="pulsante-secondario" id="pulsante-esci-educatore" data-testo="pulsanteEsciAmministrazione"></button>
+        </div>
+
+        <section class="sezione" aria-labelledby="titolo-impostazioni">
+            <h2 class="titolo-sezione" id="titolo-impostazioni" data-testo="sezioneImpostazioni"></h2>
+            <div class="modulo">
+                <label class="campo-casella">
+                    <input type="checkbox" id="casella-approvazione-foto">
+                    <span data-testo="etichettaApprovazioneFoto"></span>
+                </label>
+                <p class="messaggio-stato" id="stato-impostazioni" role="status" hidden></p>
+            </div>
+        </section>
+
+        <section class="sezione" aria-labelledby="titolo-da-approvare">
+            <h2 class="titolo-sezione" id="titolo-da-approvare" data-testo="sezioneDaApprovare"></h2>
+            <ul class="elenco-gestione" id="elenco-da-approvare"></ul>
+        </section>
+
+        <section class="sezione" aria-labelledby="titolo-nuovo-post-educatori">
+            <h2 class="titolo-sezione" id="titolo-nuovo-post-educatori" data-testo="sezioneNuovoPostEducatori"></h2>
+            <form class="modulo" id="modulo-post-educatori" novalidate>
+                <div class="campo">
+                    <label for="campo-foto-educatori" data-testo="pulsanteScegliFoto"></label>
+                    <input id="campo-foto-educatori" type="file" accept="image/*">
+                </div>
+                <div class="campo">
+                    <label for="campo-testo-post-educatori" data-testo="etichettaTestoPost"></label>
+                    <textarea id="campo-testo-post-educatori"></textarea>
+                </div>
+                <div class="campo">
+                    <label for="campo-firma-post-educatori" data-testo="etichettaFirma"></label>
+                    <input id="campo-firma-post-educatori" type="text" autocomplete="off">
+                </div>
+                <div class="riga-pulsanti">
+                    <button type="submit" id="pulsante-pubblica-educatori" data-testo="pulsantePubblica"></button>
+                </div>
+                <p class="messaggio-stato" id="stato-post-educatori" role="status" hidden></p>
+            </form>
+        </section>
+
+        <section class="sezione" aria-labelledby="titolo-gestione-contenuti">
+            <h2 class="titolo-sezione" id="titolo-gestione-contenuti" data-testo="sezioneGestioneContenuti"></h2>
+            <p class="descrizione-sezione" data-testo="descrizioneGestioneContenuti"></p>
+            <form class="modulo" id="modulo-nuovo-contenuto" novalidate>
+                <div class="campo">
+                    <label for="campo-testo-contenuto" data-testo="etichettaTestoContenuto"></label>
+                    <textarea id="campo-testo-contenuto" required></textarea>
+                </div>
+                <div class="campo">
+                    <label for="campo-link-contenuto" data-testo="etichettaLinkContenuto"></label>
+                    <input id="campo-link-contenuto" type="url" inputmode="url" autocomplete="off">
+                </div>
+                <div class="campo">
+                    <label for="campo-ordine-contenuto" data-testo="etichettaOrdineContenuto"></label>
+                    <input id="campo-ordine-contenuto" type="number" step="1" value="0">
+                </div>
+                <div class="riga-pulsanti">
+                    <button type="submit" id="pulsante-aggiungi-contenuto" data-testo="pulsanteAggiungiContenuto"></button>
+                </div>
+                <p class="messaggio-stato" id="stato-nuovo-contenuto" role="status" hidden></p>
+            </form>
+            <ul class="elenco-gestione" id="elenco-gestione-contenuti"></ul>
+        </section>
+
+        <section class="sezione" aria-labelledby="titolo-gestione-post">
+            <h2 class="titolo-sezione" id="titolo-gestione-post" data-testo="sezioneGestionePost"></h2>
+            <ul class="elenco-gestione" id="elenco-gestione-post"></ul>
+        </section>
+    </div>
+
+</main>
+
+<script src="../config/configurazione.js"></script>
+<script src="../config/testi_interfaccia.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+<script src="utilita_comuni.js"></script>
+<script src="elaborazione_foto.js"></script>
+<script src="servizio_post.js"></script>
+<script src="pagina_amministrazione.js"></script>
+<script src="installazione_app.js"></script>
+</body>
+</html>
