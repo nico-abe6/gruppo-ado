@@ -15,6 +15,9 @@
  * permette di ricavare la chiave di cifratura. La password non lascia
  * mai il dispositivo.
  *
+ * Le immagini sono cifrate con la stessa chiave AES-GCM, ognuna con un
+ * proprio vettore iniziale casuale (cifraDatiBinari / decifraDatiBinari).
+ *
  * I parametri pubblici sono salvati come testo "pbkdf2-sha256:<iterazioni>:<sale base64>".
  */
 (function inizializzaCifraturaSpazioPersonale(ambitoGlobale) {
@@ -27,9 +30,10 @@
 
     /* convertiByteInBase64 / convertiBase64InByte: conversioni per il trasporto come testo. */
     function convertiByteInBase64(byte) {
+        const DIMENSIONE_BLOCCO = 0x8000; // a blocchi: veloce anche per le immagini
         let binario = "";
-        for (let indice = 0; indice < byte.length; indice += 1) {
-            binario += String.fromCharCode(byte[indice]);
+        for (let indice = 0; indice < byte.length; indice += DIMENSIONE_BLOCCO) {
+            binario += String.fromCharCode.apply(null, byte.subarray(indice, indice + DIMENSIONE_BLOCCO));
         }
         return ambitoGlobale.btoa(binario);
     }
@@ -128,7 +132,34 @@
         return JSON.parse(new TextDecoder().decode(datiInChiaro));
     }
 
+    /*
+     * cifraDatiBinari(chiaveCifratura, byte)
+     * Cifra dati binari (es. una foto JPEG) con AES-GCM.
+     * Restituisce { vettoreIniziale, testoCifrato } in base64.
+     */
+    async function cifraDatiBinari(chiaveCifratura, byte) {
+        const vettoreIniziale = cryptoBrowser.getRandomValues(new Uint8Array(LUNGHEZZA_VETTORE_INIZIALE_BYTE));
+        const datiCifrati = new Uint8Array(await cryptoBrowser.subtle.encrypt(
+            { name: "AES-GCM", iv: vettoreIniziale }, chiaveCifratura, byte
+        ));
+        return {
+            vettoreIniziale: convertiByteInBase64(vettoreIniziale),
+            testoCifrato: convertiByteInBase64(datiCifrati)
+        };
+    }
+
+    /* decifraDatiBinari: operazione inversa di cifraDatiBinari; restituisce un Uint8Array. */
+    async function decifraDatiBinari(chiaveCifratura, vettoreInizialeBase64, testoCifratoBase64) {
+        return new Uint8Array(await cryptoBrowser.subtle.decrypt(
+            { name: "AES-GCM", iv: convertiBase64InByte(vettoreInizialeBase64) },
+            chiaveCifratura,
+            convertiBase64InByte(testoCifratoBase64)
+        ));
+    }
+
     ambitoGlobale.CifraturaSpazioPersonale = {
+        cifraDatiBinari: cifraDatiBinari,
+        decifraDatiBinari: decifraDatiBinari,
         eCifraturaSupportata: eCifraturaSupportata,
         generaParametriDerivazione: generaParametriDerivazione,
         derivaChiaviDaPassword: derivaChiaviDaPassword,

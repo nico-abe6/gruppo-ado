@@ -40,16 +40,29 @@
     <symbol id="icona-elenco" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="11" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 18h16M4 21h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
     <symbol id="icona-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
     <symbol id="icona-fotocamera" viewBox="0 0 24 24"><path d="M4 7h3l2-3h6l2 3h3a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="13" r="4" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="icona-scarica" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="icona-persona" viewBox="0 0 24 24"><circle cx="12" cy="9" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4.5 20c1.4-3.6 4.3-5 7.5-5s6.1 1.4 7.5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
 </svg>
 
 <header class="barra-superiore">
+  <div class="contenuto-barra-superiore">
     <a class="marchio" href="#bacheca">
         <img class="logo-esteso" data-logo-esteso alt="" hidden>
         <img class="logo-piccolo" data-logo data-sostituito-da-logo-esteso alt="">
         <span class="nome-marchio" data-nome-gruppo data-sostituito-da-logo-esteso></span>
     </a>
-    <button type="button" class="pulsante-installa-barra" data-installa-app data-testo="pulsanteInstallaApp" hidden></button>
+    <div class="azioni-barra-superiore">
+        <button type="button" class="pulsante-barra pulsante-secondario pulsante-solo-icona" data-installa-app hidden>
+            <svg class="icona" aria-hidden="true"><use href="#icona-scarica"/></svg>
+            <span class="testo-nascosto" data-testo="pulsanteInstallaApp"></span>
+        </button>
+        <!-- Accesso all'area educatori (login con email e password) -->
+        <a class="pulsante pulsante-barra" href="amministrazione.html">
+            <svg class="icona" aria-hidden="true"><use href="#icona-persona"/></svg>
+            <span data-testo="pulsanteAccessoEducatori"></span>
+        </a>
+    </div>
+  </div>
 </header>
 
 <main class="contenitore-app">
@@ -147,9 +160,16 @@
             </div>
             <p class="messaggio-stato" id="stato-spazio-personale" role="status" hidden></p>
             <div id="elenco-appunti" class="appunti"></div>
+            <input class="testo-nascosto" id="campo-immagine-spazio" type="file" accept="image/*" tabindex="-1" aria-hidden="true">
             <p class="aiuto-campo" data-testo="consiglioUscita"></p>
         </div>
     </section>
+
+    <!-- Foto dello spazio personale a tutto schermo -->
+    <dialog class="finestra-immagine" id="finestra-immagine-spazio">
+        <img id="immagine-grande-spazio" alt="">
+        <button type="button" class="pulsante-chiudi-immagine" id="pulsante-chiudi-immagine" data-testo="pulsanteChiudiImmagine"></button>
+    </dialog>
 
 </main>
 

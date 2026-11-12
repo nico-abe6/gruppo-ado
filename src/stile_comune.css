@@ -125,13 +125,25 @@ body {
     padding: env(safe-area-inset-top, 0px) var(--spazio-2) 0;
 }
 
+/* Riga della barra in alto: marchio a sinistra, pulsanti a destra */
+.contenuto-barra-superiore {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spazio-1);
+    max-width: var(--larghezza-app);
+    margin: 0 auto;
+    height: 3.5rem;
+}
+
+.azioni-barra-superiore { display: flex; align-items: center; gap: 0.4rem; flex: none; }
+
 .marchio {
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    max-width: var(--larghezza-app);
-    margin: 0 auto;
-    height: 3.25rem;
+    min-width: 0;
+    height: 100%;
     color: inherit;
     text-decoration: none;
 }
@@ -154,17 +166,21 @@ body {
     text-overflow: ellipsis;
 }
 
-/* Pulsante "Installa" nella barra in alto (compare solo se il telefono lo permette) */
-.pulsante-installa-barra {
-    position: absolute;
-    right: var(--spazio-2);
-    top: calc(env(safe-area-inset-top, 0px) + 0.55rem);
-    padding: 0.35rem 1rem;
-    font-size: 0.85rem;
+/* Pulsanti piccoli della barra in alto ("Installa", "Accedi come edu") */
+.azioni-barra-superiore .pulsante-barra {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    text-decoration: none;
 }
+.azioni-barra-superiore .pulsante-barra .icona { width: 1.05rem; height: 1.05rem; }
+.azioni-barra-superiore .pulsante-solo-icona { padding: 0.35rem; }
 
 /* Logo esteso (scritta) nella barra in alto */
-.logo-esteso { display: block; height: 1.6rem; width: auto; max-width: 70vw; }
+.logo-esteso { display: block; height: 1.2rem; width: auto; flex: none; }
 
 /* Il marchio e' piu' alto che largo: nei cerchi viene contenuto su fondo bianco */
 img[data-logo], .avatar-post img {
@@ -567,6 +583,58 @@ button:disabled { opacity: 0.55; cursor: progress; }
     padding-top: 0;
     padding-bottom: 0;
 }
+
+/* Foto negli appunti: miniature quadrate, la "x" in alto a destra le toglie */
+.immagini-appunto {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(4.5rem, 1fr));
+    gap: 0.5rem;
+    align-items: center;
+}
+.contenitore-miniatura-appunto { position: relative; }
+.miniatura-appunto {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    padding: 0;
+    border: 0;
+    border-radius: var(--raggio-piccolo);
+    overflow: hidden;
+    background: var(--colore-campo);
+    cursor: zoom-in;
+}
+.miniatura-appunto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.immagine-mancante { display: flex; height: 100%; align-items: center; justify-content: center; padding: 0.3rem; font-size: 0.7rem; color: var(--colore-inchiostro-tenue); }
+button.pulsante-togli-immagine {
+    position: absolute;
+    top: -0.4rem;
+    right: -0.4rem;
+    width: 1.6rem;
+    height: 1.6rem;
+    padding: 0;
+    border-radius: 50%;
+    border: 2px solid var(--colore-superficie);
+    background: var(--colore-errore);
+    color: #ffffff;
+    font-size: 1rem;
+    line-height: 1;
+}
+button.pulsante-aggiungi-immagine { grid-column: 1 / -1; justify-self: start; padding: 0.4rem 1rem; font-size: 0.85rem; }
+
+/* Finestra per vedere una foto in grande */
+.finestra-immagine {
+    max-width: 100vw;
+    max-height: 100vh;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: var(--spazio-2);
+    border: 0;
+    background: rgba(0, 0, 0, 0.92);
+}
+.finestra-immagine[open] { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--spazio-2); }
+.finestra-immagine::backdrop { background: rgba(0, 0, 0, 0.92); }
+.finestra-immagine img { max-width: 100%; max-height: calc(100% - 4rem); object-fit: contain; border-radius: var(--raggio-piccolo); }
 
 /* ---- Area educatori ---- */
 .contenitore-pagina {

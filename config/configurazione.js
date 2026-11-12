@@ -50,6 +50,16 @@ window.CONFIGURAZIONE_BACHECA = {
 
     // Regole per gli spazi personali.
     lunghezzaMinimaPassword: 8,
+    // Immagini negli spazi personali (cifrate sul telefono come gli appunti).
+    // numeroMassimoImmaginiSpazio e dimensioneMassimaImmagineSpazioByte devono
+    // coincidere con i limiti in database/02_immagini_spazi_personali.sql
+    // (700000 byte di JPEG diventano circa 933 000 caratteri cifrati, sotto
+    // il limite di 1 000 000).
+    numeroMassimoImmaginiSpazio: 20,
+    latoMassimoImmagineSpazioPixel: 1280,
+    qualitaImmagineSpazioJpeg: 0.8,
+    dimensioneMassimaImmagineSpazioByte: 700000,
+
     // Iterazioni PBKDF2 per i NUOVI spazi. Gli spazi gia' creati conservano
     // il proprio valore, quindi si puo' cambiare senza rompere nulla.
     iterazioniDerivazionePassword: 600000

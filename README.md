@@ -41,9 +41,11 @@ bacheca-qr/
 │   └── genera_icone_app.py         crea le icone delle app dal logo
 ├── database/
 │   ├── 00_elimina_versione_precedente.sql  solo se era stata installata la prima versione
-│   └── 01_crea_tabelle_e_regole.sql   tabelle, permessi, contenitore foto e funzioni
+│   ├── 01_crea_tabelle_e_regole.sql   tabelle, permessi, contenitore foto e funzioni
+│   └── 02_immagini_spazi_personali.sql  foto cifrate negli spazi personali
 ├── docs/
-│   └── guida_ragazzi.md            istruzioni brevi da dare ai ragazzi
+│   ├── guida_ragazzi.md            istruzioni brevi da dare ai ragazzi
+│   └── guida_installazione_app.md  come aggiungere la bacheca alla schermata Home (iPhone e Android)
 └── .github/workflows/
     └── mantieni_attivo_database.yml   evita la pausa del database gratuito
 ```
@@ -61,7 +63,8 @@ bacheca-qr/
 1. Nel pannello del progetto aprire **SQL Editor**.
 2. Solo se in precedenza era stata eseguita la prima versione del progetto: incollare ed eseguire `database/00_elimina_versione_precedente.sql` (cancella i dati della prima versione). Le foto eventualmente caricate restano in Storage e vanno eliminate a mano.
 3. Incollare tutto il contenuto di `database/01_crea_tabelle_e_regole.sql` e premere **Run**. Non devono comparire errori.
-4. In **Storage** deve comparire il contenitore pubblico `foto_post`.
+4. Allo stesso modo eseguire `database/02_immagini_spazi_personali.sql` (foto negli spazi personali). Va eseguito anche nei progetti già in uso: non cancella dati e si può rieseguire.
+5. In **Storage** deve comparire il contenitore pubblico `foto_post`.
 
 ### 3. Account degli educatori (passo obbligatorio per la sicurezza)
 
@@ -128,7 +131,7 @@ Bacheca e area educatori si possono aggiungere alla schermata del telefono come 
 - **Android (Chrome):** aprire la pagina, poi menu ⋮ > "Installa app" (o "Aggiungi a schermata Home"). Nella bacheca compare anche un pulsante "Installa" in alto a destra; nell'area educatori un riquadro con il pulsante "Installa l'app".
 - **iPhone (Safari):** aprire la pagina, poi pulsante Condividi > "Aggiungi alla schermata Home".
 
-Per gli educatori: installare partendo da `.../src/amministrazione.html`, così l'icona "Educatori" apre direttamente l'area riservata. Su iPhone l'app installata non condivide il login con Safari: bisogna accedere una volta dentro l'app, poi l'accesso resta memorizzato.
+Per gli educatori: chi installa la bacheca entra nell'area riservata con **Accedi come edu**. In alternativa si può installare un'app separata "Educatori" partendo dall'area educatori (dopo aver premuto Accedi come edu): la sua icona apre direttamente l'area riservata. Su iPhone l'app installata non condivide il login con Safari: bisogna accedere una volta dentro l'app, poi l'accesso resta memorizzato.
 
 File coinvolti:
 
@@ -143,7 +146,7 @@ Chi ha già installato l'app vede le icone nuove solo dopo averla rimossa e rein
 
 ### Educatori
 
-- Aprire `.../src/amministrazione.html` e fare login.
+- Nella bacheca premere **Accedi come edu** in alto a destra e fare login (l'indirizzo diretto è `.../src/amministrazione.html`).
 - **Impostazioni**: la casella "Le foto dei ragazzi compaiono solo dopo l'approvazione" fa sì che i post con foto restino nascosti finché un educatore non li approva. Le sole frasi vengono comunque pubblicate subito.
 - **Foto da approvare**: approvare o eliminare.
 - **Pubblica un post come educatori**: foto, frase o entrambe; compaiono con il logo e l'etichetta "Educatori".
@@ -158,6 +161,9 @@ Vedi `docs/guida_ragazzi.md`, da stampare o condividere insieme al QR code.
 
 - La password non lascia mai il telefono. Da essa il telefono ricava due chiavi indipendenti (PBKDF2-SHA256): una cifra gli appunti (AES-GCM), l'altra serve solo a dimostrare al database di avere diritto a leggere e salvare quello spazio.
 - Il database conserva solo il testo cifrato e l'hash bcrypt della seconda chiave. Chi ha accesso al pannello Supabase vede testo illeggibile.
+- Le foto degli appunti sono ridotte (lato lungo massimo 1280 pixel, senza metadati GPS) e cifrate sul telefono con la stessa chiave degli appunti, poi salvate nella tabella `immagini_spazi_personali` (non nello Storage pubblico). Quali foto appartengono a quale appunto è scritto solo dentro gli appunti cifrati. Al massimo 20 foto per spazio, circa 700 kB l'una.
+- Una foto viene caricata appena scelta, ma resta nell'appunto solo premendo **Salva**: al salvataggio il database elimina le foto tolte o mai salvate. Eliminando uno spazio dal SQL Editor si eliminano anche le sue foto.
+- Spazio occupato: ogni foto cifrata pesa indicativamente 150–950 kB nel database (piano gratuito: 500 MB in tutto). Con molti ragazzi che usano tutte le 20 foto conviene ridurre `numeroMassimoImmaginiSpazio` (in `config/configurazione.js` e nel file SQL 02). Lo spazio usato si vede nel pannello Supabase (Database > Usage o Reports).
 - **Una password dimenticata non si può recuperare.** Lo spazio resta inaccessibile; un educatore può eliminarlo dal SQL Editor, così il nome torna libero:
   ```sql
   delete from public.spazi_personali where nome_spazio = 'nome-da-liberare';
