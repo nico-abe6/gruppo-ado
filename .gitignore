@@ -8,3 +8,4 @@ strumenti/.tmp_progetto.tgz
 Thumbs.db
 *~
 __pycache__/
+.anteprima_claude/

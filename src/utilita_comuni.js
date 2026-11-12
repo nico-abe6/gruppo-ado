@@ -113,9 +113,12 @@
      * applicaLogoAllaPagina()
      * Mostra il logo in ogni <img data-logo> e lo usa come icona della pagina.
      * Se il file del logo non esiste, usa il segnaposto.
+     * Se e' configurato percorsoLogoEsteso, lo mostra negli <img data-logo-esteso>
+     * e nasconde gli elementi [data-sostituito-da-logo-esteso].
      * Restituisce una Promise con il percorso effettivamente usato.
      */
     function applicaLogoAllaPagina() {
+        applicaLogoEsteso();
         const immaginiLogo = document.querySelectorAll("img[data-logo]");
         const iconaPagina = document.createElement("link");
         iconaPagina.rel = "icon";
@@ -141,6 +144,28 @@
             };
             verifica.src = configurazione.percorsoLogo;
         });
+    }
+
+    /*
+     * applicaLogoEsteso()
+     * Mostra il logo con la scritta (configurazione.percorsoLogoEsteso) dove
+     * previsto. Se non e' configurato o il file manca, lascia marchio + nome.
+     */
+    function applicaLogoEsteso() {
+        const immaginiLogoEsteso = document.querySelectorAll("img[data-logo-esteso]");
+        if (!configurazione.percorsoLogoEsteso || immaginiLogoEsteso.length === 0) return;
+        const verifica = new Image();
+        verifica.onload = function logoEstesoTrovato() {
+            immaginiLogoEsteso.forEach(function mostra(immagine) {
+                immagine.src = configurazione.percorsoLogoEsteso;
+                immagine.alt = configurazione.nomeGruppo;
+                immagine.hidden = false;
+            });
+            document.querySelectorAll("[data-sostituito-da-logo-esteso]").forEach(function nascondi(elemento) {
+                elemento.hidden = true;
+            });
+        };
+        verifica.src = configurazione.percorsoLogoEsteso;
     }
 
     ambitoGlobale.UtilitaComuni = {

@@ -17,11 +17,16 @@ window.CONFIGURAZIONE_BACHECA = {
     // Nome mostrato in cima alla pagina e sotto il logo.
     nomeGruppo: "Oratorio di Gussago",
 
-    // Logo mostrato nella barra in alto, nel profilo e come icona della pagina.
+    // Marchio (simbolo) mostrato nei cerchi: profilo, post degli educatori,
+    // area educatori e icona della scheda del browser.
     // Percorso relativo alle pagine in src/. Se il file manca, viene usato
     // il segnaposto risorse_grafiche/logo_segnaposto.svg.
-    percorsoLogo: "../risorse_grafiche/logo_oratorio.png",
+    percorsoLogo: "../risorse_grafiche/marchio_oratorio.svg",
     percorsoLogoSegnaposto: "../risorse_grafiche/logo_segnaposto.svg",
+
+    // Logo esteso (scritta) mostrato nella barra in alto della bacheca al
+    // posto di marchio + nome. Lasciare "" per usare marchio + nomeGruppo.
+    percorsoLogoEsteso: "../risorse_grafiche/logo_oratorio.svg",
 
     // Lingua dei testi (vedi config/testi_interfaccia.js).
     // Le date usano la lingua del telefono di chi apre la pagina.

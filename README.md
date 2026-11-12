@@ -15,7 +15,8 @@ bacheca-qr/
 ├── index.html                      reindirizza a src/index.html
 ├── README.md                       questo file
 ├── risorse_grafiche/
-│   ├── logo_oratorio.png           DA AGGIUNGERE: logo dell'oratorio (vedi passo 5)
+│   ├── logo_oratorio.svg           logo con la scritta (barra in alto)
+│   ├── marchio_oratorio.svg        simbolo (profilo, icone, post degli educatori)
 │   ├── logo_segnaposto.svg         usato finché il logo manca
 │   └── icone/                      icone per installare le app (create da strumenti/genera_icone_app.py)
 ├── config/
@@ -79,13 +80,14 @@ Se la registrazione resta attiva, chiunque potrebbe crearsi un account e cancell
 
 Non usare mai la chiave "secret" o "service_role": darebbe accesso completo al database.
 
-### 5. Inserire il logo dell'oratorio
+### 5. Logo e marchio dell'oratorio
 
-1. Salvare il logo ufficiale dell'oratorio (dal sito della parrocchia, dai profili social dell'oratorio o chiedendo il file originale a chi lo gestisce) come immagine PNG, preferibilmente quadrata e di almeno 400 × 400 pixel.
-2. Rinominarlo `logo_oratorio.png` e copiarlo nella cartella `risorse_grafiche/`.
-3. Per usare un altro nome o formato (es. `.jpg`, `.svg`), cambiare `percorsoLogo` in `config/configurazione.js`.
+Nella cartella `risorse_grafiche/` ci sono due file vettoriali (SVG):
 
-Il logo compare nella barra in alto, nel cerchio del profilo, come immagine dei post degli educatori e come icona della scheda del browser. Il cerchio del profilo ritaglia l'immagine: un logo con molto spazio bianco attorno resta più leggibile.
+- `marchio_oratorio.svg`: il simbolo. Compare nel cerchio del profilo, come immagine dei post degli educatori, nell'area educatori, come icona della scheda del browser e nelle icone delle app (passo 10).
+- `logo_oratorio.svg`: la scritta completa. Compare nella barra in alto della bacheca al posto di simbolo + nome.
+
+Per sostituirli basta salvare i nuovi file con lo stesso nome (oppure cambiare `percorsoLogo` e `percorsoLogoEsteso` in `config/configurazione.js`; con `percorsoLogoEsteso: ""` in alto tornano simbolo e nome del gruppo). Se il simbolo manca, viene usato `logo_segnaposto.svg`. Dopo ogni cambio del simbolo, rigenerare le icone delle app con `python3 strumenti/genera_icone_app.py`.
 
 ### 6. Provare in locale (facoltativo)
 
@@ -133,7 +135,7 @@ File coinvolti:
 - `src/manifest_bacheca.webmanifest` e `src/manifest_educatori.webmanifest`: nome, icona e colori delle due app (i nomi mostrati sotto l'icona si cambiano qui, campi `name` e `short_name`).
 - `src/servizio_offline.js`: scarica sempre i file aggiornati; se manca la connessione apre l'ultima versione salvata (senza post nuovi). Se lo si modifica, aumentare `VERSIONE_CACHE`.
 - `src/installazione_app.js`: pulsanti e istruzioni di installazione.
-- `risorse_grafiche/icone/`: icone delle app. **Dopo aver aggiunto o cambiato il logo** (passo 5) rigenerarle con `python3 strumenti/genera_icone_app.py` (richiede Pillow: `pip install Pillow`). Le icone degli educatori hanno l'etichetta "EDU".
+- `risorse_grafiche/icone/`: icone delle app. **Dopo aver aggiunto o cambiato il logo** (passo 5) rigenerarle con `python3 strumenti/genera_icone_app.py` (richiede Pillow, `pip install Pillow`, e per leggere l'SVG uno tra `pip install cairosvg`, `rsvg-convert` o ImageMagick). Le icone degli educatori hanno l'etichetta "EDU".
 
 Chi ha già installato l'app vede le icone nuove solo dopo averla rimossa e reinstallata (dipende dal telefono).
 
@@ -184,6 +186,6 @@ La pagina non chiede nome, email o altri dati personali ai ragazzi. I post pubbl
 ## Personalizzazione
 
 - Testi: `config/testi_interfaccia.js`. Per un'altra lingua, copiare il blocco `it`, tradurlo e impostare `linguaInterfaccia` in `config/configurazione.js`.
-- Colori e caratteri: variabili all'inizio di `src/stile_comune.css` (tema chiaro e scuro). Lo stile attuale usa il carattere Poppins (caricato da Google Fonts in `src/index.html` e `src/amministrazione.html`), il verde come colore principale (`--colore-accento`), schede bianche con ombra e pulsanti a pillola. La versione grafica precedente è conservata in `backup_stile_precedente/`: per tornare indietro basta ricopiare quei tre file in `src/`. I due colori del cerchio attorno al logo sono `--colore-anello-logo-1` e `--colore-anello-logo-2`: si possono adattare ai colori del logo.
+- Colori e caratteri: variabili all'inizio di `src/stile_comune.css` (tema chiaro e scuro). Lo stile attuale usa il carattere Poppins (caricato da Google Fonts in `src/index.html` e `src/amministrazione.html`), i verdi della palette dell'oratorio (`--colore-marchio` #00c10c per anelli e decorazioni, `--colore-accento` #008d00 per i pulsanti con testo bianco, `--colore-testo-accento` #006e00 per testi e link), schede bianche con ombra e pulsanti a pillola. La versione grafica precedente è conservata in `backup_stile_precedente/`: per tornare indietro basta ricopiare quei tre file in `src/`. I due colori del cerchio attorno al logo sono `--colore-anello-logo-1` e `--colore-anello-logo-2`: si possono adattare ai colori del logo.
 - Nome mostrato in alto: `nomeGruppo` in `config/configurazione.js`.
 - Limiti di lunghezza: `config/configurazione.js`. Se si cambiano, aggiornare anche i controlli `check` nel file SQL.
