@@ -184,13 +184,15 @@ body {
 
 /* Il marchio e' piu' alto che largo: nei cerchi viene contenuto su fondo bianco */
 /* (margini interni in rem: una percentuale si riferirebbe al contenitore, non al cerchio) */
+/* Il marchio occupa circa il 60% del diametro, cosi' le punte della foglia non toccano il bordo del cerchio */
 img[data-logo], .avatar-post img {
     object-fit: contain;
     background: #ffffff;
-    padding: 0.2rem;
+    padding: 0.3rem;
 }
-img[data-logo].logo-profilo { padding: 0.8rem; }
-.intestazione-pagina img[data-logo] { padding: 0.4rem; }
+img[data-logo].logo-profilo { padding: 1.25rem; }
+.avatar-post img { padding: 0.45rem; }
+.intestazione-pagina img[data-logo] { padding: 0.6rem; }
 
 /* ---- Contenitore e viste ---- */
 .contenitore-app {
